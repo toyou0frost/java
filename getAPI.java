@@ -5,9 +5,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+//import org.json.simple.JSONArray;
+//import org.json.simple.JSONObject;
+//import org.json.simple.parser.JSONParser;
 
 public class getAPI {
 	public static void main(String[] args) {
@@ -43,16 +43,7 @@ public class getAPI {
 			String[] menuArr = new String[ menuList.size() ];
 			menuList.toArray(menuArr);
 			for(int i = 0; i < menuArr.length; i++) {
-				menuArr[i] = menuArr[i].replace("0","");
-				menuArr[i] = menuArr[i].replace("1","");
-				menuArr[i] = menuArr[i].replace("2","");
-				menuArr[i] = menuArr[i].replace("3","");
-				menuArr[i] = menuArr[i].replace("4","");
-				menuArr[i] = menuArr[i].replace("5","");
-				menuArr[i] = menuArr[i].replace("6","");
-				menuArr[i] = menuArr[i].replace("7","");
-				menuArr[i] = menuArr[i].replace("8","");
-				menuArr[i] = menuArr[i].replace("9","");
+				menuArr[i] = menuArr[i].replace(String.valueOf(i),"");
 				menuArr[i] = menuArr[i].replace(".","");
 				menuArr[i] = menuArr[i].replace(",\"breakfast\":[]","");
 				menuArr[i] = menuArr[i].replace(",\"date\":\"\"","");
@@ -80,6 +71,7 @@ public class getAPI {
 			for(int i = 0; i < menuArr.length; i++) {
 				menuArr[i] = menuArr[i].replace("\"lunch\":[","");
 				menuArr[i] = menuArr[i].replace("]","");
+				System.out.println(menuArr[i]);
 			}
 //        	JSONParser jsonParser = new JSONParser();
 //        	JSONObject jsonObject = (JSONObject)jsonParser.parse(response.toString());
