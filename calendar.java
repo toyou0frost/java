@@ -1,66 +1,69 @@
 package test;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
+import java.util.Date;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 public class calendar extends JFrame implements ActionListener{
+
 	JPanel topPane = new JPanel();
-		JButton prevBtn = new JButton("¢∏");
-		JButton nextBtn = new JButton("¢∫");
+		JButton exit_btn = new JButton("Îí§Î°úÍ∞ÄÍ∏∞");
+		JLabel yearLbl = new JLabel("ÎÖÑ");
+		JLabel monthLbl = new JLabel("Ïõî");
 		
-		JLabel yearLbl = new JLabel("≥‚");
-		JLabel monthLbl = new JLabel("ø˘");
+		Calendar cal = Calendar.getInstance();
 		
-		JComboBox<Integer> yearCombo = new JComboBox<Integer>();
-			DefaultComboBoxModel<Integer> yearModel = new DefaultComboBoxModel<Integer>();
-		JComboBox<Integer> monthCombo = new JComboBox<Integer>();
-		DefaultComboBoxModel<Integer> monthModel = new DefaultComboBoxModel<Integer>();
+		JLabel yearCombo = new JLabel();
+		JLabel monthCombo = new JLabel();
 		
 	JPanel centerPane = new JPanel(new BorderLayout());
 		JPanel titlePane = new JPanel(new GridLayout(1, 7));
-			String titleStr[] = {"¿œ", "ø˘", "»≠", "ºˆ", "∏Ò", "±›", "≈‰"};
+			String titleStr[] = {"Ïùº", "Ïõî", "Ìôî", "Ïàò", "Î™©", "Í∏à", "ÌÜ†"};
 		JPanel datePane = new JPanel(new GridLayout(0, 7));
-		
+
 	Calendar now;
 	int year, month, date;
 	
 	public calendar() {
+		yearCombo.setFont(new Font("Serif", Font.PLAIN, 14));
+		monthCombo.setFont(new Font("Serif", Font.PLAIN, 14));
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		now =  Calendar.getInstance();
 		year = now.get(Calendar.YEAR);
 		month = now.get(Calendar.MONTH) + 1;
 		date = now.get(Calendar.DATE);
+
+		exit_btn.setPreferredSize(new Dimension(90, 30));
+		topPane.add(exit_btn);
 		
-		topPane.add(prevBtn);
-		
-		for(int i = year-100; i <= year+50; i++) {
-			yearModel.addElement(i);
-		}
-		yearCombo.setModel(yearModel);
-		yearCombo.setSelectedItem(year);
+		yearCombo.setText(String.valueOf(year));
+		monthCombo.setText(String.valueOf(month));
+
 		topPane.add(yearCombo);
 		
 		topPane.add(yearLbl);
 		
-		for(int i = 1; i <= 12; i++) {
-			monthModel.addElement(i);
-		}
-		monthCombo.setModel(monthModel);
-		monthCombo.setSelectedItem(month);
 		topPane.add(monthCombo);
 		
 		topPane.add(monthLbl);
 		
-		topPane.add(nextBtn);
+		
+		exit_btn.addActionListener(this);
 		
 		topPane.setBackground(new Color(100, 200, 200));
 		add(topPane, "North");
@@ -68,6 +71,7 @@ public class calendar extends JFrame implements ActionListener{
 		titlePane.setBackground(Color.white);
 		for(int  i = 0; i < titleStr.length; i++) {
 			JLabel lbl = new JLabel(titleStr[i], JLabel.CENTER);
+			lbl.setFont(new Font("Serif", Font.PLAIN, 20));
 			if(i == 0) {
 				lbl.setForeground(Color.red);
 			}
@@ -82,53 +86,23 @@ public class calendar extends JFrame implements ActionListener{
 		
 		add(centerPane, "Center");
 		
-		setSize(400, 300);
+		setSize(1280, 720);
 		setVisible(true);
 		
-		prevBtn.addActionListener(this);
-		nextBtn.addActionListener(this);
-		yearCombo.addActionListener(this);
-		monthCombo.addActionListener(this);
 		
 	}
-			
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		if(obj instanceof JButton) {
-			JButton eventBtn = (JButton)obj;
-			int yy = (Integer)yearCombo.getSelectedItem();
-			int mm = (Integer)monthCombo.getSelectedItem();
-			if(eventBtn.equals(prevBtn)) {
-				if(mm == 1) {
-					yy--;
-					mm=12;
-				}
-				else {
-					mm--;
-				}
-			}
-			else if(eventBtn.equals(nextBtn)) {
-				if(mm == 12) {
-					yy++;
-					mm=1;
-				}
-				else {
-					mm++;
-				}
-			}
-			yearCombo.setSelectedItem(yy);
-			monthCombo.setSelectedItem(mm);
-		}
-		else if(obj instanceof JComboBox) {
-			createDayStart();
+		if(obj == exit_btn) {
+			setVisible(false);
+			new index();
 		}
 	}
 	
 	public void createDayStart() {
 		datePane.setVisible(false);
 		datePane.removeAll();
-		dayPrint((Integer)yearCombo.getSelectedItem(),  (Integer)monthCombo.getSelectedItem());
 		datePane.setVisible(true);
 	}
 	
@@ -142,6 +116,7 @@ public class calendar extends JFrame implements ActionListener{
 		}
 		for(int i = 1; i <= lastDate; i++) {
 			JLabel lbl = new JLabel(String.valueOf(i), JLabel.CENTER);
+			lbl.setFont(new Font("Serif", Font.PLAIN, 18));
 			cal.set(y, m-1, i);
 			int outWeek = cal.get(Calendar.DAY_OF_WEEK);
 			if(outWeek == 1) {
@@ -152,8 +127,5 @@ public class calendar extends JFrame implements ActionListener{
 			}
 			datePane.add(lbl);
 		}
-	}
-	public static void main(String[] args) {
-		new calendar();
 	}
 }

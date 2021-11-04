@@ -17,113 +17,84 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 public class index extends JFrame implements ActionListener{
-
-	JPanel topPane = new JPanel();
-		JLabel yearLbl = new JLabel("ÎÖÑ");
-		JLabel monthLbl = new JLabel("Ïõî");
-		
-		Calendar cal = Calendar.getInstance();
-		
-		JLabel yearCombo = new JLabel();
-		JLabel monthCombo = new JLabel();
-		
-	JPanel centerPane = new JPanel(new BorderLayout());
-		JPanel titlePane = new JPanel(new GridLayout(1, 7));
-			String titleStr[] = {"Ïùº", "Ïõî", "Ìôî", "Ïàò", "Î™©", "Í∏à", "ÌÜ†"};
-		JPanel datePane = new JPanel(new GridLayout(0, 7));
-		
-	Calendar now;
-	int year, month, date;
+	JPanel main_panel;
+	JButton exit_btn, timetable_btn, calendar_btn, check_btn;
+	JTextField name, age;
+	JLabel name_label, grade_label;
+	
+	String n, a;
 	
 	public index() {
-		yearCombo.setFont(new Font("Serif", Font.PLAIN, 14));
-		monthCombo.setFont(new Font("Serif", Font.PLAIN, 14));
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		now =  Calendar.getInstance();
-		year = now.get(Calendar.YEAR);
-		month = now.get(Calendar.MONTH) + 1;
-		date = now.get(Calendar.DATE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		yearCombo.setText(String.valueOf(year));
-		monthCombo.setText(String.valueOf(month));
+		this.setLayout(new GridLayout(5, 2));
 		
-		topPane.add(yearCombo);
+		JPanel name_panel = new JPanel();
+		name_panel.add(new JLabel(" ¿Ã∏ß : "));
+		name = new JTextField(20);
+		name_panel.add(name);
 		
-		topPane.add(yearLbl);
+		JPanel age_panel = new JPanel();
+		age_panel.add(new JLabel(" «–≥‚ : "));
+		age = new JTextField(3);
+		age_panel.add(age);
 		
-		topPane.add(monthCombo);
+		this.add(name_panel);
+		add(age_panel);
+		check_btn = new JButton("»Æ¿Œ");
+		add(check_btn);
+		check_btn.addActionListener(this);
 		
-		topPane.add(monthLbl);
+		setSize(1280, 720);
+		setTitle("º±∏∞ ¿Œ≈Õ≥› ∞ÌµÓ«–±≥");
 		
+		name_label = new JLabel("¿Ã∏ß");
+		grade_label = new JLabel("«–≥‚");
+		main_panel = new JPanel();
+		calendar_btn = new JButton("±ﬁΩƒ");
+		exit_btn = new JButton("¡æ∑·");
+		timetable_btn = new JButton("Ω√∞£«•");
 		
-		topPane.setBackground(new Color(100, 200, 200));
-		add(topPane, "North");
+		calendar_btn.addActionListener(this);
+		exit_btn.addActionListener(this);
+		timetable_btn.addActionListener(this);
 		
-		titlePane.setBackground(Color.white);
-		for(int  i = 0; i < titleStr.length; i++) {
-			JLabel lbl = new JLabel(titleStr[i], JLabel.CENTER);
-			lbl.setFont(new Font("Serif", Font.PLAIN, 20));
-			if(i == 0) {
-				lbl.setForeground(Color.red);
-			}
-			else if(i == 6) {
-				lbl.setForeground(Color.blue);
-			}
-			titlePane.add(lbl);
-		}
-		centerPane.add(titlePane, "North");
-		dayPrint(year, month);
-		centerPane.add(datePane, "Center");
+		main_panel.add(calendar_btn);
+		main_panel.add(exit_btn);
+		main_panel.add(name_label);
+		main_panel.add(grade_label);
+		main_panel.add(timetable_btn);
 		
-		add(centerPane, "Center");
-		
-		setSize(1920, 1080);
+		add(main_panel);
 		setVisible(true);
 		
-		
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		if(obj instanceof JButton) {
-			JButton eventBtn = (JButton)obj;
+		if(obj == calendar_btn) {
+			setVisible(false);
+			new calendar();
 		}
-		else if(obj instanceof JComboBox) {
-			createDayStart();
+		else if(obj == exit_btn) {
+			System.exit(0);
+		}
+		else if(obj == timetable_btn) {
+			setVisible(false);
+			new timetable();
+		}
+		else if(obj == check_btn) {
+			n = name.getText();
+			a = age.getText();
+			name_label.setText(n);
+			grade_label.setText(a+"«–≥‚");
 		}
 	}
 	
-	public void createDayStart() {
-		datePane.setVisible(false);
-		datePane.removeAll();
-		datePane.setVisible(true);
-	}
-	
-	public void dayPrint(int y, int m) {
-		Calendar cal = Calendar.getInstance();
-		cal.set(y, m-1, 1);
-		int week = cal.get(Calendar.DAY_OF_WEEK);
-		int lastDate = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-		for(int i = 1; i < week; i++) {
-			datePane.add(new JLabel(" "));
-		}
-		for(int i = 1; i <= lastDate; i++) {
-			JLabel lbl = new JLabel(String.valueOf(i), JLabel.CENTER);
-			lbl.setFont(new Font("Serif", Font.PLAIN, 18));
-			cal.set(y, m-1, i);
-			int outWeek = cal.get(Calendar.DAY_OF_WEEK);
-			if(outWeek == 1) {
-				lbl.setForeground(Color.red);
-			}
-			else if(outWeek == 7) {
-				lbl.setForeground(Color.BLUE);
-			}
-			datePane.add(lbl);
-		}
-	}
-
 	public static void main(String[] args) {
 		new index();
 	}
