@@ -21,8 +21,8 @@ import javax.swing.JTable;
 public class index extends JFrame implements ActionListener{
 
 	JPanel topPane = new JPanel();
-		JLabel yearLbl = new JLabel("³â");
-		JLabel monthLbl = new JLabel("¿ù");
+		JLabel yearLbl = new JLabel("ë…„");
+		JLabel monthLbl = new JLabel("ì›”");
 		
 		Calendar cal = Calendar.getInstance();
 		
@@ -31,7 +31,7 @@ public class index extends JFrame implements ActionListener{
 		
 	JPanel centerPane = new JPanel(new BorderLayout());
 		JPanel titlePane = new JPanel(new GridLayout(1, 7));
-			String titleStr[] = {"ÀÏ", "¿ù", "È­", "¼ö", "¸ñ", "±İ", "Åä"};
+			String titleStr[] = {"ì¼", "ì›”", "í™”", "ìˆ˜", "ëª©", "ê¸ˆ", "í† "};
 		JPanel datePane = new JPanel(new GridLayout(0, 7));
 		
 	Calendar now;
