@@ -14,23 +14,33 @@ import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static test.login.n;
+import static test.login.a;
+import static test.login.c;
 
 public class timetable extends JFrame implements ActionListener {
 	
-	JButton timetable_web_btn;
-	JButton exit_btn;
+	JButton timetable_web_btn, exit_btn;
+	JLabel test, test1, test2;
 	JPanel main_panel;
+	
 	
 	public timetable() {
 		exit_btn = new JButton("돌아가기");
 		timetable_web_btn = new JButton("웹으로 보기");
 		main_panel = new JPanel();
+		test = new JLabel(n);
+		test1 = new JLabel(a);
+		test2 = new JLabel(c);
 		
 		exit_btn.addActionListener(this);
 		timetable_web_btn.addActionListener(this);
 		
 		main_panel.add(timetable_web_btn);
 		main_panel.add(exit_btn);
+		main_panel.add(test);
+		main_panel.add(test1);
+		main_panel.add(test2);
 		
 		add(main_panel);
 		setSize(1280, 720);
