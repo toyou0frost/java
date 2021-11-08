@@ -21,6 +21,11 @@ import javax.swing.JTextField;
 
 import static test.login.n;
 import static test.login.a;
+import static test.getlunchAPI.ddish_nm;
+import static test.getlunchAPI.mlsv_ymd;
+import static test.getTimetableAPI.all_ti_ymd;
+import static test.getTimetableAPI.itrt_cntnt;
+import static test.getTimetableAPI.perio;
 
 public class index extends JFrame implements ActionListener{
 	JPanel main_panel;
@@ -73,6 +78,10 @@ public class index extends JFrame implements ActionListener{
 	}
 
 	public static void main(String[] args) {
+		getlunchAPI lunchapi = new getlunchAPI();
+		getTimetableAPI timetableapi = new getTimetableAPI();
+		lunchapi.main();
+		timetableapi.main();
 		new index();
 	}
 	

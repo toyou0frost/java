@@ -30,8 +30,8 @@ public class timetable extends JFrame implements ActionListener {
 		timetable_web_btn = new JButton("웹으로 보기");
 		main_panel = new JPanel();
 		test = new JLabel(n);
-		test1 = new JLabel(a);
-		test2 = new JLabel(c);
+		test1 = new JLabel(a+"학년");
+		test2 = new JLabel(c+"반");
 		
 		exit_btn.addActionListener(this);
 		timetable_web_btn.addActionListener(this);
