@@ -68,6 +68,8 @@ public class login extends JFrame implements ActionListener{
 			n = name.getText();
 			a = grade.getText();
 			c = class_nm.getText();
+			getTimetableAPI timetableapi = new getTimetableAPI();
+			timetableapi.main();
 			setVisible(false);
 			new index();
 		}
