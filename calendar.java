@@ -23,7 +23,7 @@ import javax.swing.JTable;
 public class calendar extends JFrame implements ActionListener{
 
 	JPanel topPane = new JPanel();
-		JButton exit_btn = new JButton("뒤로가기");
+		JButton exit_btn = new JButton("돌아가기");
 		JLabel yearLbl = new JLabel("년");
 		JLabel monthLbl = new JLabel("월");
 		
